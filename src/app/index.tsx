@@ -33,6 +33,11 @@ export class App extends Component {
         return (
             <div>
                 <Row gutter={48} type="flex" justify="center">
+                    <Col span={8}><h1>Ingredients</h1></Col>
+                    <Col span={8}><h1>Order</h1></Col>
+                    <Col span={2}></Col>
+                </Row>
+                <Row gutter={48} type="flex" justify="center">
                     <Col span={8}>
                         <List
                             itemLayout="vertical"
