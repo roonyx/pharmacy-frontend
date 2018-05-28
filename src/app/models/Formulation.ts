@@ -1,31 +1,31 @@
 import {action} from "mobx";
 import store from "app/stores/IngredientsStore";
+import fstore from "app/stores/FormulationsStore";
 
 export class Formulation {
     readonly id: number;
     readonly name: string;
-    readonly formulation_ingredients: Array<object>;
+    readonly ingredients = Array<object>();
 
     constructor(formulation) {
         this.id = formulation.id;
         this.name = formulation.name;
-        this.formulation_ingredients = formulation.formulation_ingredients
+
+        for (let ingredient of formulation.formulation_ingredients) {
+            this.ingredients.push({
+                id: ingredient.ingredient_id,
+                percentage: Number(ingredient.percentage)
+            })
+        }
     }
 
     @action
     select(): void {
-        for (let el of this.formulation_ingredients) {
-            store.find(el['ingredient_id']).select();
+        for (let el of this.ingredients) {
+            store.find(el['id']).select(el['percentage']);
         }
+        fstore.modal.visible = false;
     };
-
-    description(): string {
-        let res = '';
-        for (let el of this.formulation_ingredients) {
-            res += store.find(el['ingredient_id']).name;
-        }
-        return res;
-    }
 }
 
 export default Formulation;

@@ -17,27 +17,29 @@ export class IngredientsStore {
 
     @action
     save(items) {
-        for (let item of items)
+        for (let item of items) {
             this.ingredients.push(new Ingredient(item))
+            console.log(new Ingredient(item))
+        }
     }
 
     find(id: number) {
-        return this.ingredients.find((ngrd) => ngrd.id === id);
+        return this.ingredients.find((ingredient) => ingredient.id === id);
     }
 
     @computed
     get selected(): Array<Ingredient> {
-        return this.ingredients.filter((ngrd) => ngrd.selected);
+        return this.ingredients.filter((ingredient) => ingredient.selected);
     }
 
     @computed
     get unselected(): Array<Ingredient> {
-        return this.ingredients.filter((ngrd) => !ngrd.selected);
+        return this.ingredients.filter((ingredient) => !ingredient.selected);
     }
 
     @computed
     get totalPercentage(): number {
-        return this.selected.reduce((acc, ngrd) => acc + ngrd.percentage, 0)
+        return this.selected.reduce((acc, ingredient) => acc + ingredient.percentage, 0)
     }
 }
 

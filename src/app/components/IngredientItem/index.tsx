@@ -1,14 +1,13 @@
 import * as React from 'react';
 import { Component, Fragment } from 'react'
 import Ingredient from "app/models/Ingredient";
-import {observer} from "mobx-react";
+import { observer } from "mobx-react";
 
 import { Slider, InputNumber, Row, Col } from 'antd';
-import {action} from "mobx";
-// import store from "app/stores/IngredientsStore";
+import { action } from "mobx";
 
 export interface IngredientProps {
-    ingd: Ingredient;
+    ingredient: Ingredient;
 }
 
 @observer
@@ -18,28 +17,31 @@ class IngredientItem extends Component<IngredientProps> {
         super(props);
     }
 
-    select = () => this.props.ingd.select();
+    select = () => {
+        const selected = this.props.ingredient.selected;
+        selected ? this.props.ingredient.unselect(): this.props.ingredient.select();
+    };
 
-    @action onChange = value => this.props.ingd.percentage = value;
+    @action onChange = value => this.props.ingredient.percentage = value;
 
     renderSlider() {
-        if (this.props.ingd.selected) {
+        if (this.props.ingredient.selected) {
             return <Fragment>
                 <Col span={4}>
                     <Slider
-                        min={this.props.ingd.minimum}
-                        max={this.props.ingd.maximum}
-                        value={this.props.ingd.percentage}
+                        min={this.props.ingredient.minimum}
+                        max={this.props.ingredient.maximum}
+                        value={this.props.ingredient.percentage}
                         step={0.01}
                         onChange={this.onChange}
                     />
                 </Col>
-                <Col span={2}>
+                <Col span={4}>
                     <InputNumber
-                        min={this.props.ingd.minimum}
-                        max={this.props.ingd.maximum}
-                        style={{ marginLeft: 16 }}
-                        value={this.props.ingd.percentage}
+                        min={this.props.ingredient.minimum}
+                        max={this.props.ingredient.maximum}
+                        style={{ marginLeft: 8 }}
+                        value={this.props.ingredient.percentage}
                         step={0.01}
                         onChange={this.onChange}
                     />
@@ -52,8 +54,9 @@ class IngredientItem extends Component<IngredientProps> {
     render() {
         return (
             <Row>
-                <Col span={12}>
-                    <div onClick={this.select}>{this.props.ingd.name}</div>
+                <Col span={16}>
+                    <a><div onClick={this.select}>{this.props.ingredient.name}</div></a>
+                    <div>{this.props.ingredient.description}</div>
                 </Col>
                 { this.renderSlider() }
             </Row>

@@ -9,6 +9,11 @@ export class FormulationsStore {
     }
 
     @observable formulations: Array<Formulation>;
+    @observable selected: Formulation;
+
+    @observable modal = {
+        visible: false
+    };
 
     fetch() {
         axios.get('api/formulations')
