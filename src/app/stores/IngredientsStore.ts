@@ -19,7 +19,6 @@ export class IngredientsStore {
     save(items) {
         for (let item of items) {
             this.ingredients.push(new Ingredient(item))
-            console.log(new Ingredient(item))
         }
     }
 
