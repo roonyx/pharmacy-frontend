@@ -11,7 +11,7 @@ export class IngredientsStore {
     @observable ingredients: Array<Ingredient>;
 
     fetch() {
-        axios.get('api/ingredients')
+        axios.get('ingredients')
              .then(resp => this.save(resp.data));
     }
 

@@ -16,7 +16,7 @@ export class FormulationsStore {
     };
 
     fetch() {
-        axios.get('api/formulations')
+        axios.get('formulations')
              .then(resp => this.save(resp.data));
     }
 

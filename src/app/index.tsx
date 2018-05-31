@@ -21,7 +21,7 @@ export class App extends Component {
     }
 
     sendData() {
-        axios.post('api/order', { order: store.selected }).then(
+        axios.post('order', { order: store.selected }).then(
             resp => {
                 let blob = new Blob([resp.data], {type: "application/pdf;charset=utf-8"});
                 fileSaver.saveAs(blob, "Order.pdf");
